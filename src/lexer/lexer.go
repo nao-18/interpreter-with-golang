@@ -65,6 +65,11 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookupIdent(tok.Literal)
 			return tok
+		} else if isDigit(l.ch) {
+			// 数字の場合
+			tok.Type = token.INT
+			tok.Literal = l.readNumber()
+			return tok
 		} else {
 			// 英字以外の場合
 			// 文字がわからないためILLEGALへ保存
@@ -76,6 +81,20 @@ func (l *Lexer) NextToken() token.Token {
 	return tok
 }
 
+func (l *Lexer) readNumber() string {
+	position := l.position
+	for isDigit(l.ch) {
+		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
+// 0~9の数字か判定
+func isDigit(ch byte) bool {
+	return '0' <= ch && ch <= '9'
+}
+
+// ホワイトスペース等の不要なコードを読み飛ばす
 func (l *Lexer) skipWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
