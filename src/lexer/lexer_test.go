@@ -8,7 +8,7 @@ import (
 
 func TestNextToken(t *testing.T) {
 	// 入力されるソースコードを定義
-	input := `=+(),;`
+	input := `=+(){},;`
 
 	// テストで期待する型とリテラル値を定義
 	tests := []struct {
@@ -34,11 +34,11 @@ func TestNextToken(t *testing.T) {
 		tok := l.NextToken()
 
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tokentype wrong, expected=%q, got=%q", i, tt.expextedLiteral, tok.Litertal)
+			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q", i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expextedLiteral {
-			t.Fatalf("tests[%d] - litetral wrong, expected=%q, got=%q", i, tt.expextedLiteral, tok.Literal)
+			t.Fatalf("tests[%d] - litetral wrong. expected=%q, got=%q", i, tt.expextedLiteral, tok.Literal)
 		}
 	}
 }

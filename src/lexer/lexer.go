@@ -50,12 +50,12 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.COMMA, l.ch)
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
-	case '}':
-		tok = newToken(token.LBRACE, l.ch)
 	case '{':
+		tok = newToken(token.LBRACE, l.ch)
+	case '}':
 		tok = newToken(token.RBRACE, l.ch)
 	case 0:
-		tok.Litertal = ""
+		tok.Literal = ""
 		tok.Type = token.EOF
 	}
 
@@ -65,5 +65,5 @@ func (l *Lexer) NextToken() token.Token {
 
 // トークン作成
 func newToken(tokenType token.TokenType, ch byte) token.Token {
-	return token.Token{Type: tokenType, Litertal: string(ch)}
+	return token.Token{Type: tokenType, Literal: string(ch)}
 }
